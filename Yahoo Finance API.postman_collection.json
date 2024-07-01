@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "c9cb0143-e886-492c-b1cb-81593dd26698",
+		"name": "Yahoo Finance API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36638995"
+	},
+	"item": [
+		{
+			"name": "Get methods",
+			"item": [
+				{
+					"name": "List all matching symbols by ticker",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/search?search=PGR",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "PGR"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Day Gainers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/screener?list=day_gainers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"screener"
+							],
+							"query": [
+								{
+									"key": "list",
+									"value": "day_gainers"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Insider Trades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/insider-trades",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"insider-trades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Market News",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/news?type=ALL",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "ALL"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Most Active Options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/options/most-active?type=STOCKS",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"options",
+								"most-active"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "STOCKS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info by ticker",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/quote?ticker=PGR&type=STOCKS",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"quote"
+							],
+							"query": [
+								{
+									"key": "ticker",
+									"value": "PGR"
+								},
+								{
+									"key": "type",
+									"value": "STOCKS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get History by ticker",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stock/history?symbol=AAPL&interval=5m&diffandsplits=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stock",
+								"history"
+							],
+							"query": [
+								{
+									"key": "symbol",
+									"value": "AAPL"
+								},
+								{
+									"key": "interval",
+									"value": "5m"
+								},
+								{
+									"key": "diffandsplits",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Earnings for Today",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const moment = require('moment');",
+									"pm.globals.set(\"today\", moment().format(\"YYYY-MM-DD\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/calendar/earnings?date={{today}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"calendar",
+								"earnings"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "{{today}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.headers.add({",
+					"    key: 'x-rapidapi-host',",
+					"    value: pm.environment.get(\"rapidapi-host\"),",
+					"",
+					"    key: 'x-rapidapi-key',",
+					"    value: pm.environment.get(\"api_key\")",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Response Status code is 200\", function() {",
+					"    pm.expect(pm.response.to.have.status(200));",
+					"});"
+				]
+			}
+		}
+	]
+}
